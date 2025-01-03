@@ -7,5 +7,6 @@ catboost
 xgboost
 Flask
 ipykernel
+pickle
 
 #-e .
