@@ -1,11 +1,10 @@
-numpy
 pandas
-matplotlib
+numpy
 seaborn
+matplotlib
 scikit-learn
 catboost
 xgboost
-ipykernel
 Flask
-pickle
+
 #-e .
