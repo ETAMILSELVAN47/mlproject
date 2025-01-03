@@ -7,6 +7,7 @@ import pandas as pd
 from dataclasses import dataclass
 
 from src.components.data_transformation import DataTransformation
+from src.components.model_trainer import ModelTrainer
 
 @dataclass
 class DataIngestionConfig:
@@ -43,13 +44,21 @@ class DataIngestion:
         
 
 if __name__=='__main__':
+
+    logging.info('=========================================================')
     data_ingestion=DataIngestion()   
     train_file_path,test_file_path=data_ingestion.initiate_data_ingestion() 
 
+    logging.info('=========================================================')
     data_transformation=DataTransformation()
     train_arr,test_arr,preprocessor_obj_file_path=data_transformation.initiate_data_transformation(
                                                      train_file_path=train_file_path,
-                                                     test_file_path=test_file_path)    
+                                                     test_file_path=test_file_path)   
+    logging.info('=========================================================') 
+    model_trainer=ModelTrainer()
+    r2_score=model_trainer.initiate_model_trainer(train_arr=train_arr,test_arr=test_arr)
+    print(f'R2 score:{r2_score}')
+    
 
     
 

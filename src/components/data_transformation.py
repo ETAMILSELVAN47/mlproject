@@ -59,10 +59,13 @@ class DataTransformation:
 
     
     def initiate_data_transformation(self,train_file_path,test_file_path):
+        logging.info('Data Transformation has been started')
         try:
+            logging.info('Read the Train and Test Data file')
             train_df=pd.read_csv(train_file_path)
             test_df=pd.read_csv(test_file_path)
-
+            
+            logging.info('Obtain the Processor obj file')
             preprocessing_obj=self.get_data_transformer_object()
 
             target_feature=['math_score']
@@ -72,15 +75,19 @@ class DataTransformation:
 
             input_feature_test_df=test_df.drop(columns=target_feature)
             target_feature_test_df=test_df[target_feature]
-
+           
+            logging.info('Transform the Train and Test data')
             input_feature_train_arr=preprocessing_obj.fit_transform(input_feature_train_df)
             input_feature_test_arr=preprocessing_obj.transform(input_feature_test_df)
             
             train_arr=np.c_[input_feature_train_arr,np.array(target_feature_train_df)]
             test_arr=np.c_[input_feature_test_arr,np.array(target_feature_test_df)]
-
+            
+            logging.info('Save the Processor obj file')
             save_object(file_path=self.data_transformation_config.preprocessor_obj_file_path,
                         obj=preprocessing_obj)
+            
+            logging.info('Data Transformation has been completed')
 
             return (train_arr,test_arr,self.data_transformation_config.preprocessor_obj_file_path)
 
